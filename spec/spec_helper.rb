@@ -13,6 +13,11 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'rubygems'
+require 'bundler/setup'
+require 'pry'
+
 Dir["./spec/support/**/*.rb"].each { |f| require f }
 Dir["./spec/matchers/**/*.rb"].each { |f| require f }
 

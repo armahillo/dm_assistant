@@ -1,0 +1,7 @@
+Settlement
+1-5    Small Outpost
+6-15   Village
+16     Nothing at all
+17-70  Town
+71-95  City
+96-100 Metropolis

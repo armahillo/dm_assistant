@@ -1,0 +1,4 @@
+Table with code objects
+-----------------------
+1-5   Foo = Struct.new(:foo)
+

@@ -46,7 +46,51 @@ class ProbabilityTable
     return output
   end
 
+=begin
+# Expects a file like:
+Name of Table
+1-5    First result
+6-15   Second result
+16     Single number result
+17-70  Third result
+# comments are ignored
+71-95  Fourth result
+96-100 Fifth result
+=end
+  def self.load(filename, evaluate = false)
+    file = File.read(filename)
+    lines = file.split("\n")
+    table_name = lines.shift
+    lines.reject! { |l| l.match(/^[\-=#]+/) } # Omit all commented lines
+
+    table_data = if file_uses_ranges?(lines)
+      parse_lines_with_ranges(lines, evaluate).to_h
+    else
+      lines.map! { |l| eval(l) } if evaluate
+      lines
+    end
+
+    self.new(name: table_name, data: table_data)
+  end
+
 private
+  def self.file_uses_ranges?(lines)
+    lines.reject { |l| l.match(/^[\d\-]+[\s\t]+/).nil? }.size == lines.size
+  end
+
+  def self.parse_lines_with_ranges(lines, evaluate = false)
+    lines.collect do |l|
+      # This regex allows for the columns to be split by any kind of whitespace
+      range, result = l.chomp.split(/[\s\t]+/,2)
+      result = eval(result) if evaluate
+      # s,e sets the start and end of the range
+      s,e = range.match(/(\d+)?[-]?(\d+)?/)[1..2]
+      e ||= s # If `e` is nil, then set it to s
+
+      [s.to_i..e.to_i, result]  
+    end
+  end
+
   def recalculate_top_of_range
     @top_of_range = @data.keys.map(&:max).max || 0
   end

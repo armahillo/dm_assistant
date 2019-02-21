@@ -1,10 +1,14 @@
+require 'rubygems'
+require 'bundler/setup'
+require 'pry'
+
 Dir["./lib/**/*.rb"].each { |f| require f }
 
 
-s = Settlement.new
+#s = Settlement.new
 
-puts s.summary
+#puts s.summary
 
 u =  UrbanEncounter.new.encounter
 puts u
-puts u.description
+puts u.description.parse_dice
