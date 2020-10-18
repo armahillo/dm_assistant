@@ -1,8 +1,3 @@
-#require './lib/probability_table'
-#require './lib/name_generator'
-#require './lib/tavern'
-#require './lib/warehouse'
-
 class Settlement
   @@SIZE_TABLE = ProbabilityTable.load('./data/settlement_size.table')
   @@RACE_RELATIONS_TABLE = ProbabilityTable.load('./data/settlement_race_relations.table')
@@ -17,33 +12,31 @@ class Settlement
   def initialize(**presets)
     @size = presets[:size] || @@SIZE_TABLE.roll
     @name = NameGenerator.new
-    @shops = []
     @race_relations = @@RACE_RELATIONS_TABLE.roll
     @known_for = @@KNOWN_FOR_TABLE.roll
     @current_calamity = @@CURRENT_CALAMITY_TABLE.roll
     @notable_trait = @@NOTABLE_TRAITS_TABLE.roll
 
     buildings = []
-    10.times { buildings << add_building }
+    10.times { buildings << Building.random }
     @shops, @buildings = buildings.partition(&:shop?)
   end
 
-  def summary
-    ":: #{@size} of #{@name.to_s.upcase} ::\n" +
-    "Known for:".ljust(15) + "#{@known_for}\n" +
-    "Notable trait:".ljust(15) + "#{@notable_trait}\n" +
-    "Current calamity:".ljust(15) + "#{@current_calamity}\n" +
-    "Race relations:".ljust(15) + "#{@race_relations}\n" +
-    "Buildings:".ljust(15) + "\n" +
-      "\t" + (@buildings - @shops).join("\n\t") + "\n" +
-    "Shops:".ljust(15) + "\n" +
-      "\t" + @shops.join("\n\t") + "\n"
+  def to_table
+    table = TTY::Table.new(data)
+    renderer = TTY::Table::Renderer::Unicode.new(table, multiline: true, padding: [1,1,0,1])
+    renderer.render
   end
 
   private
 
-  def add_building
-    building = Building.random
-
+  def data
+    [[ 'Name', "#{@size} of #{@name.to_s.upcase}" ],
+     [ 'Known for', @known_for ],
+     [ 'Notable trait', @notable_trait ],
+     [ 'Current calamity', @current_calamity ],
+     [ 'Race relations', @race_relations ],
+     [ 'Buildings', (@buildings - @shops).sort.join("\n") ],
+     [ 'Shops', @shops.sort.join("\n") ]]
   end
 end

@@ -11,10 +11,6 @@ Dir["./lib/**/*.rb"].each { |f| require f }
 
 #puts s.summary
 
-u =  UrbanEncounter.new.encounter
-puts u
-puts u.description.parse_dice
-
 quit = false
 
 def menu
@@ -31,7 +27,7 @@ def do_selection(choice)
     puts u.description.parse_dice    
   when 'Settlement'
     s = Settlement.new
-    puts s.summary
+    puts s.to_table
   when 'Tavern'
     t = Tavern.new
     puts t
@@ -52,7 +48,6 @@ end
 
 while !quit do
   selection = menu
-  p selection
   do_selection(selection)
   quit = (selection == 'Quit')
 end

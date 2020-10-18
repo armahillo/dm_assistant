@@ -127,6 +127,7 @@ PLATFORMS
 
 DEPENDENCIES
   binding_of_caller
+  pastel
   pry
   rspec
   tty
