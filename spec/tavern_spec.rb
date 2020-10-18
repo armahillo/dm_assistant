@@ -1,4 +1,4 @@
-require './lib/tavern'
+require './lib/buildings/tavern'
 
 describe "Tavern" do
   let(:trials) { 10 }

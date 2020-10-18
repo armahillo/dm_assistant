@@ -22,6 +22,8 @@ class Building
   def self.random
     type = building_types.roll
     Object.const_get(type).new
+  rescue
+    "A Building"
   end
 
   def self.building_types
