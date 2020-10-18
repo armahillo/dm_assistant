@@ -6,6 +6,6 @@ class UnderseaEncounter < RandomEncounter
   attr_reader :encounter
 
   def initialize
-    @encounter = eval(@@ENCOUNTER_TABLE.roll).parse_dice
+    @encounter = eval(@@ENCOUNTER_TABLE.roll)
   end
 end
