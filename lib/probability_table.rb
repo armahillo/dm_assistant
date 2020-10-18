@@ -8,6 +8,8 @@ d10   Result
 10    Clear
 =end
 
+require 'tty-table'
+
 class ProbabilityTable
   attr_reader :name, :top_of_range, :last_result, :last_roll, :data
 
@@ -38,11 +40,14 @@ class ProbabilityTable
     
     output += header + "\n" + header.size * "-" + "\n"
 
+    body = []
     @data.each do |range, value|
+      body << [range, value]
       output += range + "\t" + value + "\n"
     end
 
-    puts output unless silent
+    puts TTY::Table.new(["Range","Results"], body) unless silent  
+
     return output
   end
 

@@ -40,8 +40,7 @@ def do_selection(choice)
     puts c
     puts c.description.parse_dice
   when 'Warehouse'
-    w = Warehouse.new
-    puts w.description
+    puts Warehouse.new
   when 'Name'
     n = NameGenerator.new
     puts n
