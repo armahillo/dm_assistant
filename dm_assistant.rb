@@ -15,7 +15,7 @@ quit = false
 
 def menu
   prompt = TTY::Prompt.new
-  prompt.select("Choose your destiny?", ["Urban Encounter", "Name", "Settlement", "Tavern", "Undersea Encounter", "Warehouse", "Quit"])
+  prompt.select("Choose your destiny?", ["Name", "Urban Encounter", "Settlement", "Tavern", "Undersea Encounter", "Forest Encounter", "Warehouse", "Quit"])
 end
 
 def do_selection(choice)
@@ -26,11 +26,13 @@ def do_selection(choice)
     puts u
     puts u.description.parse_dice    
   when 'Settlement'
-    s = Settlement.new
-    puts s.to_table
+    puts Settlement.new.to_table
   when 'Tavern'
-    t = Tavern.new
-    puts t
+    puts Tavern.new
+  when 'Forest Encounter'
+    c = WildernessEncounter.new.encounter
+    puts c
+    puts c.description.parse_dice
   when 'Undersea Encounter'
     c = UnderseaEncounter.new.encounter
     puts c
@@ -38,8 +40,7 @@ def do_selection(choice)
   when 'Warehouse'
     puts Warehouse.new
   when 'Name'
-    n = NameGenerator.new
-    puts n
+    puts NameGenerator.new
   else
     puts "Quitting..."
   end
