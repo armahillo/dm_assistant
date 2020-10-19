@@ -22,21 +22,15 @@ def do_selection(choice)
   puts "\n* * * * * * * * * * * *\n"
   case choice
   when 'Urban Encounter'
-    u = UrbanEncounter.new.encounter
-    puts u
-    puts u.description.parse_dice    
+    puts RandomEncounter.new('encounter_urban')
   when 'Settlement'
     puts Settlement.new.to_table
   when 'Tavern'
     puts Tavern.new
   when 'Forest Encounter'
-    c = WildernessEncounter.new.encounter
-    puts c
-    puts c.description.parse_dice
+    puts RandomEncounter.new('encounter_wilderness_forest')
   when 'Undersea Encounter'
-    c = UnderseaEncounter.new.encounter
-    puts c
-    puts c.description.parse_dice
+    puts RandomEncounter.new('encounter_undersea')
   when 'Warehouse'
     puts Warehouse.new
   when 'Name'
