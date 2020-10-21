@@ -14,5 +14,4 @@ class NameGenerator
   def to_s
     @name
   end
-
 end

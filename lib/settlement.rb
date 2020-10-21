@@ -9,7 +9,7 @@ class Settlement
   @@CURRENT_CALAMITY_TABLE = ProbabilityTable.load('./data/settlement_current_calamity.table')
 
   attr_reader :name, :size, :shops, :buildings
-              :race_relations
+  :race_relations
 
   def initialize(**presets)
     @size = presets[:size] || @@SIZE_TABLE.roll
@@ -18,13 +18,13 @@ class Settlement
     @known_for = presets[:known_for] || @@KNOWN_FOR_TABLE.roll
     @current_calamity = presets[:current_calamity] || @@CURRENT_CALAMITY_TABLE.roll
     @notable_trait = presets[:notable_trait] || @@NOTABLE_TRAITS_TABLE.roll
-    
+
     @shops, @buildings = load_buildings(presets[:buildings]).partition(&:shop?)
   end
 
   def to_table
     table = TTY::Table.new(data)
-    renderer = TTY::Table::Renderer::Unicode.new(table, multiline: true, padding: [1,1,0,1])
+    renderer = TTY::Table::Renderer::Unicode.new(table, multiline: true, padding: [1, 1, 0, 1])
     renderer.render
   end
 
@@ -36,7 +36,8 @@ class Settlement
   end
 
   def self.load(filename)
-    raise StandardError "#{filename} not found" unless File.exists?(filename)
+    raise StandardError "#{filename} not found" unless File.exist?(filename)
+
     data = YAML.load(File.read(filename))
     settlement = Settlement.new(data)
   end
@@ -52,13 +53,13 @@ class Settlement
   end
 
   def data
-    [[ 'Name', "#{@size} of #{@name.to_s.upcase}" ],
-     [ 'Known for', @known_for ],
-     [ 'Notable trait', @notable_trait ],
-     [ 'Current calamity', @current_calamity ],
-     [ 'Race relations', @race_relations ],
-     [ 'Buildings', (@buildings - @shops).sort.join("\n") ],
-     [ 'Shops', @shops.sort.join("\n") ]]
+    [['Name', "#{@size} of #{@name.to_s.upcase}"],
+     ['Known for', @known_for],
+     ['Notable trait', @notable_trait],
+     ['Current calamity', @current_calamity],
+     ['Race relations', @race_relations],
+     ['Buildings', (@buildings - @shops).sort.join("\n")],
+     ['Shops', @shops.sort.join("\n")]]
   end
 
   def to_yaml

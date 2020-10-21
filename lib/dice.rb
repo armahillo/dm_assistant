@@ -6,15 +6,15 @@ class Dice
   end
 
   def self.parse(dice_string)
-    rolls, faces = dice_string.split("d")
+    rolls, faces = dice_string.split('d')
     Dice.new(rolls: rolls, faces: faces)
   end
 end
 
 class String
   def parse_dice
-    dice_string_regex = %r{\b\d+d\d+\b}
-    self.gsub(dice_string_regex) do |dice_string|
+    dice_string_regex = /\b\d+d\d+\b/
+    gsub(dice_string_regex) do |dice_string|
       Dice.parse(dice_string).result
     end
   end

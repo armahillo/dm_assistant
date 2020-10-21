@@ -27,22 +27,24 @@ class Building
   end
 
   def self.load_building(preset)
-    building_type = Object.const_get(preset.delete(:type)) rescue self
+    building_type = begin
+                      Object.const_get(preset.delete(:type))
+                    rescue StandardError
+                      self
+                    end
     building_type.new(preset)
   end
 
   def self.random
     type = building_types.roll
     Object.const_get(type).new
-  rescue
-    self.new(name: "A Building")
+  rescue StandardError
+    new(name: 'A Building')
   end
 
   def self.building_types
-    @building_types ||= self.load_table('settlement_building_type')
+    @building_types ||= load_table('settlement_building_type')
   end
-
-  protected
 
   def self.load_table(table_name)
     ProbabilityTable.load("./data/#{table_name}.table")

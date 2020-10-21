@@ -1,10 +1,10 @@
 require './lib/name_generator'
 
-describe "Name Generator" do
+describe 'Name Generator' do
   let(:trials) { 10 }
   subject { NameGenerator.new }
 
-  it "produces random names" do
+  it 'produces random names' do
     results = RandomTrials.sample_cases(trials: trials) do
       NameGenerator.new.to_s
     end

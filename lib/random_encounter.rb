@@ -19,8 +19,6 @@ class RandomEncounter
     @encounter&.to_s
   end
 
-  protected
-
   def self.load_table(table_name)
     ProbabilityTable.load("./data/#{table_name}.table")
   end

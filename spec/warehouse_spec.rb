@@ -1,9 +1,9 @@
 require './lib/buildings/warehouse'
 
-describe "Warehouse" do
+describe 'Warehouse' do
   subject { Warehouse.new }
 
-  it "randomly determines the description on instantiation" do
+  it 'randomly determines the description on instantiation' do
     trials = 10
     results = []
     trials.times do

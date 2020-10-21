@@ -4,26 +4,25 @@ require 'pry'
 
 require 'tty-prompt'
 
-Dir["./lib/**/*.rb"].each { |f| require f }
+Dir['./lib/**/*.rb'].each { |f| require f }
 
+# s = Settlement.new
 
-#s = Settlement.new
-
-#puts s.summary
+# puts s.summary
 
 quit = false
 
 def userdata_files
-  Dir["./userdata/**/*"]
+  Dir['./userdata/**/*']
 end
 
 def menu
-  TTY::Prompt.new.select("Choose your destiny?", ["Name", "Urban Encounter", "Settlement", "Load Settlement", "Tavern", "Undersea Encounter", "Forest Encounter", "Warehouse", "Quit"], per_page: 10)
+  TTY::Prompt.new.select('Choose your destiny?', ['Name', 'Urban Encounter', 'Settlement', 'Load Settlement', 'Tavern', 'Undersea Encounter', 'Forest Encounter', 'Warehouse', 'Quit'], per_page: 10)
 end
 
 def prompt_for_settlement
   settlements = userdata_files
-  TTY::Prompt.new.select("Choose a settlement") do |menu|
+  TTY::Prompt.new.select('Choose a settlement') do |menu|
     settlements.each do |filename|
       menu.choice File.basename(filename).split(/[-.]/)[1], filename
     end
@@ -55,12 +54,12 @@ def do_selection(choice)
   when 'Name'
     puts NameGenerator.new
   else
-    puts "Quitting..."
+    puts 'Quitting...'
   end
   puts "\n* * * * * * * * * * * *\n"
 end
 
-while !quit do
+until quit
   selection = menu
   do_selection(selection)
   quit = (selection == 'Quit')
