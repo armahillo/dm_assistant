@@ -11,12 +11,24 @@ class Building
     name
   end
 
+  def to_h
+    {
+      name: @name,
+      type: self.class.to_s
+    }
+  end
+
   def <=>(other)
     self.class.to_s <=> other.class.to_s
   end
 
   def shop?
     false
+  end
+
+  def self.load_building(preset)
+    building_type = Object.const_get(preset.delete(:type)) || self
+    building_type.new(preset)
   end
 
   def self.random

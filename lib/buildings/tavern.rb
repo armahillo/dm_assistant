@@ -15,4 +15,8 @@ class Tavern < Building
   def to_s
     "#{@name} (#{@size})"
   end
+
+  def to_h
+    super.merge Hash.new(size: size)
+  end
 end

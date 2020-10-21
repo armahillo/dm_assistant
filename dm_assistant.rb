@@ -13,9 +13,21 @@ Dir["./lib/**/*.rb"].each { |f| require f }
 
 quit = false
 
+def userdata_files
+  Dir["./userdata/**/*"]
+end
+
 def menu
-  prompt = TTY::Prompt.new
-  prompt.select("Choose your destiny?", ["Name", "Urban Encounter", "Settlement", "Tavern", "Undersea Encounter", "Forest Encounter", "Warehouse", "Quit"])
+  TTY::Prompt.new.select("Choose your destiny?", ["Name", "Urban Encounter", "Settlement", "Load Settlement", "Tavern", "Undersea Encounter", "Forest Encounter", "Warehouse", "Quit"], per_page: 10)
+end
+
+def prompt_for_settlement
+  settlements = userdata_files
+  TTY::Prompt.new.select("Choose a settlement") do |menu|
+    settlements.each do |filename|
+      menu.choice File.basename(filename).split(/[-.]/)[1], filename
+    end
+  end
 end
 
 def do_selection(choice)
@@ -24,7 +36,14 @@ def do_selection(choice)
   when 'Urban Encounter'
     puts RandomEncounter.new('encounter_urban')
   when 'Settlement'
-    puts Settlement.new.to_table
+    settlement = Settlement.new
+    puts settlement.to_table
+    settlement.save
+  when 'Load Settlement'
+    filename = prompt_for_settlement
+    puts filename
+    settlement = Settlement.load(filename)
+    puts settlement.to_table
   when 'Tavern'
     puts Tavern.new
   when 'Forest Encounter'
