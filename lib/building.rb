@@ -27,7 +27,7 @@ class Building
   end
 
   def self.load_building(preset)
-    building_type = Object.const_get(preset.delete(:type)) || self
+    building_type = Object.const_get(preset.delete(:type)) rescue self
     building_type.new(preset)
   end
 
@@ -35,7 +35,7 @@ class Building
     type = building_types.roll
     Object.const_get(type).new
   rescue
-    "A Building"
+    self.new(name: "A Building")
   end
 
   def self.building_types
