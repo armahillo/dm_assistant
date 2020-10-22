@@ -12,7 +12,7 @@ class RandomEncounter
 
   def initialize(table_name)
     @table = RandomEncounter.load_table(table_name)
-    @encounter = eval(@table.roll.parse_dice)
+    @encounter = Encounter.new(*@table.roll.parse_dice.split('|'))
   end
 
   def to_s
