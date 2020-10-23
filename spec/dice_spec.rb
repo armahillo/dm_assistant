@@ -38,16 +38,40 @@ describe 'Dice' do
   end
 
   describe 'Monkey-patching String' do
-    it 'replaces xdy language with the result' do
+    before do
       stub_die_roll(6)
-      phrase = 'Summon 2d6 jellyfish'
-      expect(phrase.parse_dice).to eq('Summon 12 jellyfish')
     end
 
-    it 'is able to replace multiple dice occurences' do
-      stub_die_roll(6)
-      phrase = 'Summon 1d6 jellyfish and 2d6 seahorses'
-      expect(phrase.parse_dice).to eq('Summon 6 jellyfish and 12 seahorses')
+    context "with a single instance" do
+      subject { 'Summon 2d6 jellyfish'.parse_dice }
+
+      it 'replaces xdy language with the result' do
+        expect(subject).to eq('Summon 12 jellyfish')
+      end
+    end
+
+    context "with multiple instances" do
+      subject { 'Summon 1d6 jellyfish and 2d6 seahorses'.parse_dice }
+
+      it 'is able to replace multiple dice occurences' do
+        expect(subject).to eq('Summon 6 jellyfish and 12 seahorses')
+      end
+    end
+    
+    context 'when it includes a positive modifier' do
+      subject { 'Summon 1d6+1 jellyfish'.parse_dice }
+
+      it "adds the modifier" do
+        expect(subject).to eq('Summon 7 jellyfish')
+      end
+    end
+
+    context 'when it includes a negative modifier' do
+      subject { 'Summon 1d6-1 jellyfish'.parse_dice }
+
+      it "subtracts the modifier" do
+        expect(subject).to eq('Summon 5 jellyfish')
+      end
     end
   end
 end
