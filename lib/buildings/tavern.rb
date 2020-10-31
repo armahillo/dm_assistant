@@ -1,8 +1,8 @@
 require './lib/building'
 
 class Tavern < Building
-  @@FIRST_NAME_TABLE = load_table('tavern_first_name')
-  @@LAST_NAME_TABLE = load_table('tavern_second_name')
+  @@FIRST_NAME_TABLE = ProbabilityTable.load('./data/names/tavern_first_name.table')
+  @@LAST_NAME_TABLE = ProbabilityTable.load('./data/names/tavern_second_name.table')
 
   attr_reader :name
   attr_reader :size

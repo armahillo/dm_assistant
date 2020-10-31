@@ -43,10 +43,10 @@ class Building
   end
 
   def self.building_types
-    @building_types ||= load_table('settlement_building_type')
+    @building_types ||= load_table('building_type')
   end
 
   def self.load_table(table_name)
-    ProbabilityTable.load("./data/#{table_name}.table")
+    ProbabilityTable.load("./data/buildings/#{table_name}.table")
   end
 end

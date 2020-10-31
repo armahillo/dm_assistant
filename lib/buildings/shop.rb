@@ -1,7 +1,7 @@
 require './lib/building'
 
 class Shop < Building
-  @@SHOP_TABLE = load_table('settlement_shops')
+  @@SHOP_TABLE = load_table('shops')
 
   def initialize(name: nil)
     super(name: name || @@SHOP_TABLE.roll)

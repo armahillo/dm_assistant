@@ -33,7 +33,7 @@ def do_selection(choice)
   puts "\n* * * * * * * * * * * *\n"
   case choice
   when 'Urban Encounter'
-    puts RandomEncounter.new('encounter_urban')
+    puts Urban.new
   when 'Settlement'
     settlement = Settlement.new
     puts settlement.to_table
@@ -46,9 +46,9 @@ def do_selection(choice)
   when 'Tavern'
     puts Tavern.new
   when 'Forest Encounter'
-    puts RandomEncounter.new('encounter_wilderness_forest')
+    puts Wilderness.new
   when 'Undersea Encounter'
-    puts RandomEncounter.new('encounter_undersea')
+    puts Undersea.new
   when 'Warehouse'
     puts Warehouse.new
   when 'Name'

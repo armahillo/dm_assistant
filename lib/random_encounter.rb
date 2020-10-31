@@ -20,6 +20,6 @@ class RandomEncounter
   end
 
   def self.load_table(table_name)
-    ProbabilityTable.load("./data/#{table_name}.table")
+    ProbabilityTable.load("./data/encounters/#{table_name}.table")
   end
 end

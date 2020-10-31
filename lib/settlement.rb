@@ -1,12 +1,12 @@
 require 'yaml'
 
 class Settlement
-  @@SIZE_TABLE = ProbabilityTable.load('./data/settlement_size.table')
-  @@RACE_RELATIONS_TABLE = ProbabilityTable.load('./data/settlement_race_relations.table')
-  @@RULER_STATUS_TABLE = ProbabilityTable.load('./data/settlement_religious_building.table')
-  @@NOTABLE_TRAITS_TABLE = ProbabilityTable.load('./data/settlement_notable_traits.table')
-  @@KNOWN_FOR_TABLE = ProbabilityTable.load('./data/settlement_known_for.table')
-  @@CURRENT_CALAMITY_TABLE = ProbabilityTable.load('./data/settlement_current_calamity.table')
+  @@SIZE_TABLE = ProbabilityTable.load('./data/settlements/size.table')
+  @@RACE_RELATIONS_TABLE = ProbabilityTable.load('./data/settlements/race_relations.table')
+  @@RULER_STATUS_TABLE = ProbabilityTable.load('./data/settlements/ruler_status.table')
+  @@NOTABLE_TRAITS_TABLE = ProbabilityTable.load('./data/settlements/notable_traits.table')
+  @@KNOWN_FOR_TABLE = ProbabilityTable.load('./data/settlements/known_for.table')
+  @@CURRENT_CALAMITY_TABLE = ProbabilityTable.load('./data/settlements/current_calamity.table')
 
   attr_reader :name, :size, :shops, :buildings
   :race_relations
