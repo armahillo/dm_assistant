@@ -1,6 +1,8 @@
 require 'yaml'
 
 class Settlement
+  include Persistable
+
   @@SIZE_TABLE = ProbabilityTable.load('./data/settlements/size.table')
   @@RACE_RELATIONS_TABLE = ProbabilityTable.load('./data/settlements/race_relations.table')
   @@RULER_STATUS_TABLE = ProbabilityTable.load('./data/settlements/ruler_status.table')
@@ -28,18 +30,8 @@ class Settlement
     renderer.render
   end
 
-  def save(filename = nil)
-    filename ||= "./userdata/settlement-#{@name}.yml"
-    File.open(filename, 'w') do |f|
-      f.write(to_yaml)
-    end
-  end
-
-  def self.load(filename)
-    raise StandardError "#{filename} not found" unless File.exist?(filename)
-
-    data = YAML.load(File.read(filename))
-    settlement = Settlement.new(data)
+  def default_filename
+    "./userdata/settlement-#{@name}.yml"
   end
 
   private
