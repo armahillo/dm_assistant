@@ -1,4 +1,5 @@
 require 'yaml'
+require './lib/mixins/persistable'
 
 class Settlement
   include Persistable

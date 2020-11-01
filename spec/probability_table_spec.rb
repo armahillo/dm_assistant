@@ -26,10 +26,10 @@ describe 'Probability Table' do
   end
 
   describe 'Loading from a file' do
-    let(:normal_table) { './spec/support/standard_table_sample.txt' }
-    let(:no_range_table) { './spec/support/no_ranges_table_sample.txt' }
-    let(:table_with_code) { './spec/support/table_with_code.txt' }
-    let(:table_with_objects) { './spec/support/table_with_code_objects.txt' }
+    let(:normal_table) { './spec/data/standard_table_sample.txt' }
+    let(:no_range_table) { './spec/data/no_ranges_table_sample.txt' }
+    let(:table_with_code) { './spec/data/table_with_code.txt' }
+    let(:table_with_objects) { './spec/data/table_with_code_objects.txt' }
 
     it 'generates a new ProbabilityTable from a file' do
       expect(ProbabilityTable.load(normal_table)).to be_is_a(ProbabilityTable)
