@@ -11,7 +11,6 @@ module Persistable
 
     def save(filename = nil)
       filename ||= default_filename
-
       File.open(filename, 'w') do |f|
         f.write(to_yaml)
       end

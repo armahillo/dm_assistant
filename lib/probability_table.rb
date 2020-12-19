@@ -101,7 +101,7 @@ class ProbabilityTable
     return nil if @top_of_range.zero?
 
     @last_roll = Random.rand(@top_of_range) + 1
-    @data.select { |ranges| ranges.cover?(@last_roll) }.values.first
+    result = @data.select { |ranges| ranges.cover?(@last_roll) }.values.first
   end
 
   def array_to_hash_of_ranges(data_array)

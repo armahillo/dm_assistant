@@ -20,11 +20,9 @@ RSpec.shared_examples "Persistable" do
 
   describe "#save" do
     it "uses a default_filename if none is provided" do
-
-    end
-
-    it "writes to a yaml file" do
-
+      allow(instance).to receive(:default_filename).and_return("foo.txt")
+      expect(File).to receive(:open).with('foo.txt', 'w')
+      instance.save
     end
   end
 
