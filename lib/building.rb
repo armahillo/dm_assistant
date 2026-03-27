@@ -32,7 +32,7 @@ class Building
                     rescue StandardError
                       self
                     end
-    building_type.new(preset)
+    building_type.new(**preset)
   end
 
   def self.random

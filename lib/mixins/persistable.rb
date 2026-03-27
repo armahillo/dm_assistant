@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Persistable
   def self.included base
     base.send :include, InstanceMethods
@@ -11,6 +13,7 @@ module Persistable
 
     def save(filename = nil)
       filename ||= default_filename
+      FileUtils.mkdir_p(File.dirname(filename))
       File.open(filename, 'w') do |f|
         f.write(to_yaml)
       end
@@ -19,10 +22,10 @@ module Persistable
 
   module ClassMethods
     def load(filename)
-      raise StandardError "#{filename} not found" unless File.exist?(filename)
+      raise StandardError, "#{filename} not found" unless File.exist?(filename)
 
       data = YAML.load(File.read(filename))
-      self.new(data)
+      self.new(**data)
     end
   end
 end

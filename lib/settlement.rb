@@ -12,7 +12,6 @@ class Settlement
   @@CURRENT_CALAMITY_TABLE = ProbabilityTable.load('./data/settlements/current_calamity.table')
 
   attr_reader :name, :size, :shops, :buildings
-  :race_relations
 
   def initialize(**presets)
     @size = presets[:size] || @@SIZE_TABLE.roll
@@ -55,7 +54,7 @@ class Settlement
      ['Shops', @shops.sort.join("\n")]]
   end
 
-  def to_yaml
+  def to_h
     {
       name: @name.to_s,
       size: @size,
@@ -64,6 +63,10 @@ class Settlement
       current_calamity: @current_calamity,
       notable_trait: @notable_trait,
       buildings: (@buildings + @shops).collect(&:to_h)
-    }.to_yaml
+    }
+  end
+
+  def to_yaml
+    to_h.to_yaml
   end
 end

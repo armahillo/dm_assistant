@@ -17,6 +17,6 @@ class Tavern < Building
   end
 
   def to_h
-    super.merge Hash.new(size: size)
+    super.merge(size: size)
   end
 end
