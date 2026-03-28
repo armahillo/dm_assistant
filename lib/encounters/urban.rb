@@ -1,7 +1,7 @@
 require './lib/random_encounter'
 
 class Urban < RandomEncounter
-  def initialize
-    super('urban')
+  def initialize(name: nil, description: nil)
+    super('urban', name: name, description: description)
   end
 end

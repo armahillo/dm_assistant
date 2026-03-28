@@ -1,4 +1,5 @@
 require './lib/building'
+require './lib/buildings/shop'
 
 describe 'Building' do
   subject { Building.new }
@@ -58,5 +59,11 @@ describe 'Building' do
     describe 'shop?' do
       it { is_expected.not_to be_shop }
     end
+  end
+end
+
+describe Shop do
+  describe '#shop?' do
+    it { expect(Shop.new).to be_shop }
   end
 end

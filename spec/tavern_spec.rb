@@ -32,4 +32,16 @@ describe 'Tavern' do
   it 'can have a size provided' do
     expect(Tavern.new(size: 'Giant').size).to eq('Giant')
   end
+
+  describe '#to_s' do
+    it 'includes name and size' do
+      expect(Tavern.new(name: 'The Rusty Nail', size: 'Large').to_s).to eq('The Rusty Nail (Large)')
+    end
+  end
+
+  describe '#to_h' do
+    it 'includes a size key' do
+      expect(Tavern.new(size: 'Small').to_h[:size]).to eq('Small')
+    end
+  end
 end

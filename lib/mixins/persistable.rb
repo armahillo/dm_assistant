@@ -14,9 +14,7 @@ module Persistable
     def save(filename = nil)
       filename ||= default_filename
       FileUtils.mkdir_p(File.dirname(filename))
-      File.open(filename, 'w') do |f|
-        f.write(to_yaml)
-      end
+      File.write(filename, to_yaml)
     end
   end
 

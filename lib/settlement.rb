@@ -34,6 +34,22 @@ class Settlement
     "./userdata/settlement-#{@name}.yml"
   end
 
+  def to_h
+    {
+      name: @name.to_s,
+      size: @size,
+      race_relations: @race_relations,
+      known_for: @known_for,
+      current_calamity: @current_calamity,
+      notable_trait: @notable_trait,
+      buildings: (@buildings + @shops).collect(&:to_h)
+    }
+  end
+
+  def to_yaml
+    to_h.to_yaml
+  end
+
   private
 
   def load_buildings(presets)
@@ -52,21 +68,5 @@ class Settlement
      ['Race relations', @race_relations],
      ['Buildings', (@buildings - @shops).sort.join("\n")],
      ['Shops', @shops.sort.join("\n")]]
-  end
-
-  def to_h
-    {
-      name: @name.to_s,
-      size: @size,
-      race_relations: @race_relations,
-      known_for: @known_for,
-      current_calamity: @current_calamity,
-      notable_trait: @notable_trait,
-      buildings: (@buildings + @shops).collect(&:to_h)
-    }
-  end
-
-  def to_yaml
-    to_h.to_yaml
   end
 end

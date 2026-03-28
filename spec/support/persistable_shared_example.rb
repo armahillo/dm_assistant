@@ -21,7 +21,7 @@ RSpec.shared_examples "Persistable" do
   describe "#save" do
     it "uses a default_filename if none is provided" do
       allow(instance).to receive(:default_filename).and_return("foo.txt")
-      expect(File).to receive(:open).with('foo.txt', 'w')
+      expect(File).to receive(:write).with('foo.txt', anything)
       instance.save
     end
   end

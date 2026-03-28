@@ -20,6 +20,19 @@ describe 'Probability Table' do
     expect(results).to be_a_random_sampling_of(10)
   end
 
+  describe '#<<' do
+    it 'appends a new entry and updates the top of range' do
+      expect { subject.<<(result: 'third', range: 11..20) }.to change { subject.top_of_range }.from(10).to(20)
+    end
+
+    it 'makes the new entry available for rolling' do
+      pt = ProbabilityTable.new(name: 'test', data: { 1..1 => 'only' })
+      pt.<<(result: 'added', range: 2..2)
+      results = 20.times.map { pt.roll }.uniq
+      expect(results).to include('added')
+    end
+  end
+
   it 'accepts an array of data, and will assign ranges evenly to it' do
     pt = ProbabilityTable.new(name: 'Test', data: %w[a b c])
     expect(pt.data).to eq(Hash[1..1 => 'a', 2..2 => 'b', 3..3 => 'c'])
